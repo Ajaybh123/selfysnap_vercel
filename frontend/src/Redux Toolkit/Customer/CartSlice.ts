@@ -19,13 +19,13 @@ const initialState: CartState = {
 };
 
 // Define the base URL for the API
-const API_URL = "/api/cart";
+const DEPLOYED_URL = "/api/cart";
 
 export const fetchUserCart = createAsyncThunk<Cart, string>(
   "cart/fetchUserCart",
   async (jwt: string, { rejectWithValue }) => {
     try {
-      const response = await api.get(API_URL, {
+      const response = await api.get(DEPLOYED_URL, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
@@ -50,7 +50,7 @@ export const addItemToCart = createAsyncThunk<
   { jwt: string | null; request: AddItemRequest }
 >("cart/addItemToCart", async ({ jwt, request }, { rejectWithValue }) => {
   try {
-    const response = await api.put(`${API_URL}/add`, request, {
+    const response = await api.put(`${DEPLOYED_URL}/add`, request, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -69,7 +69,7 @@ export const deleteCartItem = createAsyncThunk<
   { jwt: string; cartItemId: number }
 >("cart/deleteCartItem", async ({ jwt, cartItemId }, { rejectWithValue }) => {
   try {
-    const response = await api.delete(`${API_URL}/item/${cartItemId}`, {
+    const response = await api.delete(`${DEPLOYED_URL}/item/${cartItemId}`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     return response.data;
@@ -88,7 +88,7 @@ export const updateCartItem = createAsyncThunk<
   async ({ jwt, cartItemId, cartItem }, { rejectWithValue }) => {
     try {
       const response = await api.put(
-        `${API_URL}/item/${cartItemId}`,
+        `${DEPLOYED_URL}/item/${cartItemId}`,
         cartItem,
         {
           headers: { Authorization: `Bearer ${jwt}` },

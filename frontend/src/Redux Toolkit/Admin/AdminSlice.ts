@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { HomeCategory } from "../../types/homeDataTypes";
 import { api } from "../../Config/Api";
 
-const API_URL = "/home";
+const DEPLOYED_URL = "/home";
 
 /* ============================
    UPDATE HOME CATEGORY
@@ -16,7 +16,7 @@ export const updateHomeCategory = createAsyncThunk<
   async ({ id, data }, { rejectWithValue }) => {
     try {
       const response = await api.patch(
-        `${API_URL}/home-category/${id}`,
+        `${DEPLOYED_URL}/home-category/${id}`,
         data
       );
       return response.data;
@@ -40,7 +40,7 @@ export const fetchHomeCategories = createAsyncThunk<
   "homeCategory/fetchHomeCategories",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get(`${API_URL}/home-category`);
+      const response = await api.get(`${DEPLOYED_URL}/home-category`);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(

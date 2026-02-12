@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/tool
 import { type MainCategory } from "../../types/mainCategoryTypes";
 import { api } from "../../Config/Api";
 
-const API_URL = "/api/admin/main-categories";
+const DEPLOYED_URL = "/api/admin/main-categories";
 
 // ---------- State Type ----------
 interface MainCategoryState {
@@ -49,7 +49,7 @@ export const createMainCategory = createAsyncThunk<
 
       console.log("CREATE CATEGORY PAYLOAD 👉", payload);
 
-      const res = await api.post(`${API_URL}/`, payload, {
+      const res = await api.post(`${DEPLOYED_URL}/`, payload, {
         headers: {
           Authorization: `Bearer ${jwt}`,
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export const fetchMainCategories = createAsyncThunk<
   { rejectValue: string }
 >("mainCategory/fetchAll", async (jwt, { rejectWithValue }) => {
   try {
-    const res = await api.get(`${API_URL}/`, {
+    const res = await api.get(`${DEPLOYED_URL}/`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     return res.data;
@@ -90,7 +90,7 @@ export const updateMainCategory = createAsyncThunk<
   { rejectValue: string }
 >("mainCategory/update", async ({ categoryId, data, jwt }, { rejectWithValue }) => {
   try {
-    const res = await api.put(`${API_URL}/${categoryId}`, data, {
+    const res = await api.put(`${DEPLOYED_URL}/${categoryId}`, data, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     return res.data;
@@ -106,7 +106,7 @@ export const deleteMainCategory = createAsyncThunk<
   { rejectValue: string }
 >("mainCategory/delete", async ({ id, jwt }, { rejectWithValue }) => {
   try {
-    await api.delete(`${API_URL}/${id}`, {
+    await api.delete(`${DEPLOYED_URL}/${id}`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     return id;

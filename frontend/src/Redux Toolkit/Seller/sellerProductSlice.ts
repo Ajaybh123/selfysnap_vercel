@@ -4,13 +4,13 @@ import {type  Product } from '../../types/productTypes';
 
 
 
-const API_URL = '/api/sellers/product';
+const DEPLOYED_URL = '/api/sellers/product';
 
 export const fetchSellerProducts = createAsyncThunk<Product[], any>(
     'sellerProduct/fetchSellerProducts',
     async (jwt, { rejectWithValue }) => {
         try {
-            const response = await api.get<Product[]>(API_URL,{
+            const response = await api.get<Product[]>(DEPLOYED_URL,{
                 headers: { Authorization: `Bearer ${jwt}` },
                 
             });
@@ -27,7 +27,7 @@ export const createProduct = createAsyncThunk<Product, { request: any; jwt: stri
     'sellerProduct/createProduct',
     async ({ request, jwt }, { rejectWithValue }) => {
         try {
-            const response = await api.post<Product>(API_URL, request, {
+            const response = await api.post<Product>(DEPLOYED_URL, request, {
                 headers: { Authorization: `Bearer ${jwt}` },
             });
             console.log("product created ",response.data)
@@ -43,7 +43,7 @@ export const updateProduct = createAsyncThunk<Product, { productId: string; prod
     'sellerProduct/updateProduct',
     async ({ productId, product }, { rejectWithValue }) => {
         try {
-            const response = await api.put<Product>(`${API_URL}/${productId}`, product,{
+            const response = await api.put<Product>(`${DEPLOYED_URL}/${productId}`, product,{
                 headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
             });
             console.log("update product ", response.data)
@@ -59,7 +59,7 @@ export const deleteProduct = createAsyncThunk<void, string>(
   'sellerProduct/deleteProduct',
   async (productId, { rejectWithValue }) => {
     try {
-      await api.delete(`${API_URL}/${productId}`, {
+      await api.delete(`${DEPLOYED_URL}/${productId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
       });
     } catch (error: any) {

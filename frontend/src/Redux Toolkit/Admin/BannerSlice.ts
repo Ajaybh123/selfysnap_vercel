@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../Config/Api";
 
-const API_URL = "/api/admin/banners";
+const DEPLOYED_URL = "/api/admin/banners";
 
 /* ---------- Types ---------- */
 export interface IBanner {
@@ -30,7 +30,7 @@ const initialState: BannerState = {
 export const fetchBanners = createAsyncThunk<IBanner[]>(
   "banner/fetch",
   async () => {
-    const res = await api.get(API_URL);
+    const res = await api.get(DEPLOYED_URL);
 
     console.log("API RAW RESPONSE:", res.data);
 
@@ -46,7 +46,7 @@ export const fetchBanners = createAsyncThunk<IBanner[]>(
 export const createBanner = createAsyncThunk<IBanner, IBanner>(
   "banner/create",
   async (payload) => {
-    const res = await api.post(API_URL, payload);
+    const res = await api.post(DEPLOYED_URL, payload);
     return res.data?.data || res.data;
   }
 );
@@ -56,7 +56,7 @@ export const updateBanner = createAsyncThunk<
   IBanner,
   { id: string; data: Partial<IBanner> }
 >("banner/update", async ({ id, data }) => {
-  const res = await api.put(`${API_URL}/${id}`, data);
+  const res = await api.put(`${DEPLOYED_URL}/${id}`, data);
   return res.data?.data || res.data;
 });
 
@@ -64,7 +64,7 @@ export const updateBanner = createAsyncThunk<
 export const deleteBanner = createAsyncThunk<string, string>(
   "banner/delete",
   async (id) => {
-    await api.delete(`${API_URL}/${id}`);
+    await api.delete(`${DEPLOYED_URL}/${id}`);
     return id;
   }
 );

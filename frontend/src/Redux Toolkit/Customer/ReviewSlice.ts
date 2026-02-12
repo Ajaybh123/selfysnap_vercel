@@ -7,7 +7,7 @@ import {
 } from "../../types/reviewTypes";
 import { api } from "../../Config/Api";
 
-const API_URL = "/api/reviews";
+const DEPLOYED_URL = "/api/reviews";
 
 // Async thunks
 export const fetchReviewsByProductId = createAsyncThunk<Review[],any>(
@@ -15,7 +15,7 @@ export const fetchReviewsByProductId = createAsyncThunk<Review[],any>(
   async ({ productId }, { rejectWithValue }) => {
     try {
       const response = await api.get(
-        `${API_URL}/product/${productId}`,
+        `${DEPLOYED_URL}/product/${productId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -36,7 +36,7 @@ export const createReview = createAsyncThunk<Review,any>(
   async ({ productId, review, jwt,navigate }, { rejectWithValue }) => {
     try {
       const response = await api.post(
-        `${API_URL}/product/${productId}`,
+        `${DEPLOYED_URL}/product/${productId}`,
         review,
         {
           headers: {
@@ -63,7 +63,7 @@ export const updateReview = createAsyncThunk<
   async ({ reviewId, review, jwt }, { rejectWithValue }) => {
     try {
       const response = await api.patch(
-        `${API_URL}/${reviewId}`,
+        `${DEPLOYED_URL}/${reviewId}`,
         review,
         {
           headers: {
@@ -84,7 +84,7 @@ export const deleteReview = createAsyncThunk<
   ApiResponse,any
 >("review/deleteReview", async ({ reviewId, jwt }, { rejectWithValue }) => {
   try {
-    const response = await api.delete(`${API_URL}/${reviewId}`, {
+    const response = await api.delete(`${DEPLOYED_URL}/${reviewId}`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },

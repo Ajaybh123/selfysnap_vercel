@@ -21,7 +21,7 @@ const initialState: SellerAuthState = {
     sellerCreated:""
 };
 
-const API_URL = '/sellers';
+const DEPLOYED_URL = '/sellers';
 
 // Define async thunks for sending and verifying OTP
 export const sendLoginOtp = createAsyncThunk('otp/sendLoginOtp', async (email: string, { rejectWithValue }) => {
@@ -53,7 +53,7 @@ export const createSeller = createAsyncThunk<Seller, Seller>(
     'sellers/createSeller',
     async (seller: Seller, { rejectWithValue }) => {
         try {
-            const response = await api.post<Seller>(API_URL, seller);
+            const response = await api.post<Seller>(DEPLOYED_URL, seller);
             console.log('create seller', response.data);
             return response.data;
         } catch (error:any) {

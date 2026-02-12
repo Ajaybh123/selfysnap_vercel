@@ -27,14 +27,14 @@ const initialState: SellerState = {
 };
 
 // Define the base URL for the API
-const API_URL = "/sellers";
+const DEPLOYED_URL = "/sellers";
 
 // Create async thunks for API calls
 export const fetchSellerProfile = createAsyncThunk<Seller, any>(
   "sellers/fetchSellerProfile",
   async (jwt: string, { rejectWithValue }) => {
     try {
-      const response = await api.get<Seller>(`${API_URL}/profile`, {
+      const response = await api.get<Seller>(`${DEPLOYED_URL}/profile`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
@@ -68,7 +68,7 @@ export const fetchSellers = createAsyncThunk<Seller[], string>(
   "sellers/fetchSellers",
   async (status: string, { rejectWithValue }) => {
     try {
-      const response = await api.get<Seller[]>(API_URL, {
+      const response = await api.get<Seller[]>(DEPLOYED_URL, {
         params: {
           status,
         },
@@ -104,7 +104,7 @@ export const fetchSellerReport = createAsyncThunk<
   { rejectValue: string }
 >("sellers/fetchSellerReport", async (jwt: string, { rejectWithValue }) => {
   try {
-    const response = await api.get(`/api${API_URL}/report`, {
+    const response = await api.get(`/api${DEPLOYED_URL}/report`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -124,7 +124,7 @@ export const fetchSellerById = createAsyncThunk<Seller, number>(
   "sellers/fetchSellerById",
   async (id: number, { rejectWithValue }) => {
     try {
-      const response = await api.get(`${API_URL}/${id}`);
+      const response = await api.get(`${DEPLOYED_URL}/${id}`);
       return response.data;
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
@@ -159,7 +159,7 @@ export const updateSeller = createAsyncThunk<
   ) => {
     console.log("seller update request ",seller)
     try {
-      const response = await api.patch(`${API_URL}`, seller,{
+      const response = await api.patch(`${DEPLOYED_URL}`, seller,{
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
@@ -217,7 +217,7 @@ export const verifySellerEmail = createAsyncThunk<
   "sellers/verifySellerEmail",
   async ({ otp, navigate }, { rejectWithValue }) => {
     try {
-      const response = await api.patch(`${API_URL}/verify/${otp}`);
+      const response = await api.patch(`${DEPLOYED_URL}/verify/${otp}`);
       navigate("/seller-account-verified");
       console.log("verifiy seller email ", response.data);
       return response.data;
@@ -240,7 +240,7 @@ export const deleteSeller = createAsyncThunk<void, number>(
   "sellers/deleteSeller",
   async (id: number, { rejectWithValue }) => {
     try {
-      await api.delete(`${API_URL}/${id}`);
+      await api.delete(`${DEPLOYED_URL}/${id}`);
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
         console.error(

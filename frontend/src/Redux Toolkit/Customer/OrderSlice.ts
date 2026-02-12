@@ -18,7 +18,7 @@ const initialState: OrderState = {
   orderCanceled: false,
 };
 
-const API_URL = "/api/orders";
+const DEPLOYED_URL = "/api/orders";
 
 /* ================== THUNKS ================== */
 
@@ -27,7 +27,7 @@ export const fetchUserOrderHistory = createAsyncThunk<Order[], string>(
   "orders/fetchUserOrderHistory",
   async (jwt, { rejectWithValue }) => {
     try {
-      const response = await api.get<Order[]>(`${API_URL}/user`, {
+      const response = await api.get<Order[]>(`${DEPLOYED_URL}/user`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
       console.log("order history fetched ", response.data);
@@ -46,7 +46,7 @@ export const fetchOrderById = createAsyncThunk<
   { orderId: string; jwt: string }
 >("orders/fetchOrderById", async ({ orderId, jwt }, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${API_URL}/${orderId}`, {
+    const response = await api.get(`${DEPLOYED_URL}/${orderId}`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     console.log("order fetched -", response.data);
@@ -63,7 +63,7 @@ export const createOrder = createAsyncThunk<
 >("orders/createOrder", async ({ address, jwt, paymentGateway }, { rejectWithValue }) => {
   try {
     const response = await api.post<any>(
-      API_URL,
+      DEPLOYED_URL,
       { shippingAddress: address },
       {
         headers: { Authorization: `Bearer ${jwt}` },
@@ -89,7 +89,7 @@ export const fetchOrderItemById = createAsyncThunk<
   { orderItemId: string; jwt: string }
 >("orders/fetchOrderItemById", async ({ orderItemId, jwt }, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${API_URL}/item/${orderItemId}`, {
+    const response = await api.get(`${DEPLOYED_URL}/item/${orderItemId}`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     return response.data;
@@ -124,7 +124,7 @@ export const cancelOrder = createAsyncThunk<Order, { orderId: string; jwt: strin
   async ({ orderId, jwt }, { rejectWithValue }) => {
     try {
       const response = await api.put(
-        `${API_URL}/${orderId}/cancel`,
+        `${DEPLOYED_URL}/${orderId}/cancel`,
         {},
         {
           headers: { Authorization: `Bearer ${jwt}` },

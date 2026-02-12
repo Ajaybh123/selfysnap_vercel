@@ -23,13 +23,13 @@ const initialState: AuthState = {
 };
 
 // Define the base URL for the API
-const API_URL = '/auth';
+const DEPLOYED_URL = '/auth';
 
 export const sendLoginSignupOtp = createAsyncThunk<ApiResponse, { email: string }>(
     'auth/sendLoginSignupOtp',
     async ({ email }, { rejectWithValue }) => {
         try {
-            const response = await api.post(`${API_URL}/sent/login-signup-otp`, { email });
+            const response = await api.post(`${DEPLOYED_URL}/sent/login-signup-otp`, { email });
             console.log("otp sent successfully",response.data);
             return response.data;
         } catch (error:any) {
@@ -45,7 +45,7 @@ export const signup = createAsyncThunk<AuthResponse, SignupRequest>(
         console.log("signup ", signupRequest)
         try {
             
-            const response = await api.post<AuthResponse>(`${API_URL}/signup`, signupRequest);
+            const response = await api.post<AuthResponse>(`${DEPLOYED_URL}/signup`, signupRequest);
            signupRequest.navigate("/")
            localStorage.setItem("jwt",response.data.jwt)
             return response.data;
@@ -59,7 +59,7 @@ export const signin = createAsyncThunk<AuthResponse, LoginRequest>(
     'auth/signin',
     async (loginRequest, { rejectWithValue }) => {
         try {
-            const response = await api.post<AuthResponse>(`${API_URL}/signin`, loginRequest);
+            const response = await api.post<AuthResponse>(`${DEPLOYED_URL}/signin`, loginRequest);
            console.log("login successful", response.data)
            localStorage.setItem("jwt",response.data.jwt)
            loginRequest.navigate("/");
@@ -75,7 +75,7 @@ export const resetPassword = createAsyncThunk<ApiResponse, ResetPasswordRequest>
     'auth/resetPassword',
     async (resetPasswordRequest, { rejectWithValue }) => {
         try {
-            const response = await api.post<ApiResponse>(`${API_URL}/reset-password`, resetPasswordRequest);
+            const response = await api.post<ApiResponse>(`${DEPLOYED_URL}/reset-password`, resetPasswordRequest);
             return response.data;
         } catch (error:any) {
             return rejectWithValue('Reset password failed');
@@ -87,7 +87,7 @@ export const resetPasswordRequest = createAsyncThunk<ApiResponse, { email: strin
     'auth/resetPasswordRequest',
     async ({ email }, { rejectWithValue }) => {
         try {
-            const response = await api.post<ApiResponse>(`${API_URL}/reset-password-request`, { email });
+            const response = await api.post<ApiResponse>(`${DEPLOYED_URL}/reset-password-request`, { email });
             return response.data;
         } catch (error:any) {
             return rejectWithValue('Reset password request failed');

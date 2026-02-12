@@ -4,7 +4,7 @@ import { type RootState } from "../Store";
 import { api } from "../../Config/Api";
 
 // Define the base URL for the API
-const API_URL = "/products";
+const DEPLOYED_URL = "/products";
 
 // Define the initial state type
 interface ProductState {
@@ -33,7 +33,7 @@ export const fetchProductById = createAsyncThunk<Product, string>(
   "products/fetchProductById",
   async (productId, { rejectWithValue }) => {
     try {
-      const response = await api.get<Product>(`${API_URL}/${productId}`);
+      const response = await api.get<Product>(`${DEPLOYED_URL}/${productId}`);
       console.log("product details ", response.data);
       return response.data;
     } catch (error: any) {
@@ -47,7 +47,7 @@ export const searchProduct = createAsyncThunk<Product[], string>(
   "products/searchProduct",
   async (query, { rejectWithValue }) => {
     try {
-      const response = await api.get<Product[]>(`${API_URL}/search`, {
+      const response = await api.get<Product[]>(`${DEPLOYED_URL}/search`, {
         params: { query },
       });
       console.log("search products ",response.data)
@@ -75,7 +75,7 @@ export const getAllProducts = createAsyncThunk<
   }
 >("products/getAllProducts", async (params, { rejectWithValue }) => {
   try {
-    const response = await api.get<any>(API_URL, {
+    const response = await api.get<any>(DEPLOYED_URL, {
       params: {
         ...params,
         pageNumber: params.pageNumber || 0,

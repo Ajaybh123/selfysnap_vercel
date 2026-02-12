@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk,type PayloadAction } from "@reduxjs/toolk
 import {type Coupon, type CouponState } from "../../types/couponTypes";
 import { api } from "../../Config/Api";
 
-const API_URL = "/api/coupons";
+const DEPLOYED_URL = "/api/coupons";
 
 // Async thunks
 
@@ -12,7 +12,7 @@ export const createCoupon = createAsyncThunk<
   { rejectValue: string }
 >("coupon/createCoupon", async ({ coupon, jwt }, { rejectWithValue }) => {
   try {
-    const response = await api.post(`${API_URL}/admin/create`, coupon, {
+    const response = await api.post(`${DEPLOYED_URL}/admin/create`, coupon, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     console.log(" created coupon ", response.data)
@@ -28,7 +28,7 @@ export const deleteCoupon = createAsyncThunk<
   { rejectValue: string }
 >("coupon/deleteCoupon", async ({ id, jwt }, { rejectWithValue }) => {
   try {
-    const response = await api.delete(`${API_URL}/admin/delete/${id}`, {
+    const response = await api.delete(`${DEPLOYED_URL}/admin/delete/${id}`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     return response.data;
@@ -43,7 +43,7 @@ export const fetchAllCoupons = createAsyncThunk<
   { rejectValue: string }
 >("coupon/fetchAllCoupons", async (jwt, { rejectWithValue }) => {
   try {
-    const response = await api.get(`${API_URL}/admin/all`, {
+    const response = await api.get(`${DEPLOYED_URL}/admin/all`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     console.log("all coupons ",response.data)

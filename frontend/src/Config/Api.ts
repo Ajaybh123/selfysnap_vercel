@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 export const API_URL = "http://localhost:8080";
-export const DEPLOYED_URL = "https://selfysnap-3.onrender.com"
+export const DEPLOYED_URL = "https://selfysnap-vercel.vercel.app"
 // change api
 
 export const api = axios.create({
-  baseURL: API_URL,
+  baseURL: DEPLOYED_URL,
   headers: {
     'Content-Type': 'application/json',
   },

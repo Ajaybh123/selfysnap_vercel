@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../Config/Api";
 
-const API_URL = "/api/admin/categories";
+const DEPLOYED_URL = "/api/admin/categories";
 
 export const fetchCategories = createAsyncThunk(
   "category/fetchCategories",
   async (jwt: string) => {
-    const res = await api.get(API_URL, {
+    const res = await api.get(DEPLOYED_URL, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },

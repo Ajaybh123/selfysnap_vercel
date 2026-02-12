@@ -12,7 +12,7 @@ const initialState: UserState = {
 };
 
 // Define the base URL for the API
-const API_URL = "/api/users";
+const DEPLOYED_URL = "/api/users";
 
 export const fetchUserProfile = createAsyncThunk<
   User,
@@ -24,7 +24,7 @@ export const fetchUserProfile = createAsyncThunk<
     { rejectWithValue }
   ) => {
     try {
-      const response = await api.get(`${API_URL}/profile`, {
+      const response = await api.get(`${DEPLOYED_URL}/profile`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
       console.log(" user profile ", response.data);

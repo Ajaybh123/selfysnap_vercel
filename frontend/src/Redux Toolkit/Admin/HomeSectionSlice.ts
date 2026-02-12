@@ -6,7 +6,7 @@ import {
 import { api } from "../../Config/Api";
 import { type HomeSection } from "../../types/homeSectionType";
 
-const API_URL = "/api/admin/home-sections";
+const DEPLOYED_URL = "/api/admin/home-sections";
 
 // ---------- State Type ----------
 interface HomeSectionState {
@@ -45,7 +45,7 @@ export const createHomeSection = createAsyncThunk<
       isActive: section.isActive,
     };
 
-    const res = await api.post(`${API_URL}/`, payload, {
+    const res = await api.post(`${DEPLOYED_URL}/`, payload, {
       headers: {
         Authorization: `Bearer ${jwt}`,
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ export const fetchHomeSections = createAsyncThunk<
   { rejectValue: string }
 >("homeSection/fetchAll", async (jwt, { rejectWithValue }) => {
   try {
-    const res = await api.get(`${API_URL}/`, {
+    const res = await api.get(`${DEPLOYED_URL}/`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     return res.data;
@@ -87,7 +87,7 @@ export const updateHomeSection = createAsyncThunk<
   "homeSection/update",
   async ({ sectionId, data, jwt }, { rejectWithValue }) => {
     try {
-      const res = await api.put(`${API_URL}/${sectionId}`, data, {
+      const res = await api.put(`${DEPLOYED_URL}/${sectionId}`, data, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
       return res.data;
@@ -106,7 +106,7 @@ export const deleteHomeSection = createAsyncThunk<
   { rejectValue: string }
 >("homeSection/delete", async ({ id, jwt }, { rejectWithValue }) => {
   try {
-    await api.delete(`${API_URL}/${id}`, {
+    await api.delete(`${DEPLOYED_URL}/${id}`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     return id;

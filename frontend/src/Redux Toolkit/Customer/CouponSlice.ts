@@ -3,7 +3,7 @@ import { type Cart } from "../../types/cartTypes";
 import { type CouponState } from "../../types/couponTypes";
 import { api } from "../../Config/Api";
 
-const API_URL = "/api/coupons";
+const DEPLOYED_URL = "/api/coupons";
 
 // Async thunks
 export const applyCoupon = createAsyncThunk<
@@ -19,7 +19,7 @@ export const applyCoupon = createAsyncThunk<
   "coupon/applyCoupon",
   async ({ apply, code, orderValue, jwt }, { rejectWithValue }) => {
     try {
-      const response = await api.post(`${API_URL}/apply`, null, {
+      const response = await api.post(`${DEPLOYED_URL}/apply`, null, {
         params: { apply, code, orderValue },
         headers: { Authorization: `Bearer ${jwt}` },
       });
