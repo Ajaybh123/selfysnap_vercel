@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  background-color: #ffffff;
+}
+
+/* Navigation arrows */
+.banner-prev,
+.banner-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  padding-bottom: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #284797;
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+  transition: all 0.25s ease;
+}
+
+.banner-prev {
+  left: 16px;
+}
+
+.banner-next {
+  right: 16px;
+}
+
+.banner-prev:hover,
+.banner-next:hover {
+  background: #284797;
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Pagination dots */
+.banner-pagination {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.banner-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.banner-pagination .swiper-pagination-bullet-active {
+  width: 18px;
+  border-radius: 6px;
+  background: #284797;
+  opacity: 1;
+}
+
+

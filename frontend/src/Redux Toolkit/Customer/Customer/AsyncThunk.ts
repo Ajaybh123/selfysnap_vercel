@@ -1,0 +1,50 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import {type HomeCategory, type HomeData } from '../../../types/homeDataTypes';
+import { api } from '../../../Config/Api';
+
+// Async thunk to fetch home page data with try-catch for error handling
+export const fetchHomePageData = createAsyncThunk<HomeData>(
+  'home/fetchHomePageData',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get('/home/home-page');
+      console.log("home page ",response.data)
+      return response.data;
+    } catch (error: any) {
+      // Handle the error and return it to be used in rejected action
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to fetch home page data';
+      console.log("errr ",errorMessage,error)
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+export const createHomeCategories = createAsyncThunk<HomeData, HomeCategory[]>(
+  'home/createHomeCategories',
+  async (homeCategories, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/home/categories', homeCategories);
+      console.log("home categories ",response.data)
+      return response.data;
+    } catch (error: any) {
+      // Handle the error and return it to be used in rejected action
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to create home categories';
+      console.log("errr ",errorMessage,error)
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+export const deleteHomeCategory = createAsyncThunk<{message: string, data: HomeCategory}, string>(
+  'home/deleteHomeCategory',
+  async (categoryId, { rejectWithValue }) => {
+    try {
+      const response = await api.delete(`/home/home-category/${categoryId}`);
+      console.log("deleted category ",response.data)
+      return response.data;
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to delete home category';
+      console.log("error deleting ",errorMessage,error)
+      return rejectWithValue(errorMessage);
+    }
+  }
+);

@@ -1,0 +1,10 @@
+.custom-border {
+    border: 9px solid;
+    border-color:  rgb(99, 99, 99) rgb(245, 96, 47);
+  }
+  
+  .custom-border img {
+    border-radius: 50%;
+  }
+  
+ 
